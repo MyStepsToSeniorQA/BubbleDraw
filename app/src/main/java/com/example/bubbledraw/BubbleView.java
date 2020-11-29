@@ -64,7 +64,13 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
             int x = (int) motionEvent.getX(n);
             int y = (int) motionEvent.getY(n);
             int s = rand.nextInt(size) + size;
-            bubbleList.add(new Bubble(x, y, s));
+            int xspeed = 10;
+            int yspeed = 10;
+            if(motionEvent.getPointerCount() > 3 ) s = 200;
+            if(motionEvent.getPointerCount()== 0) bubbleList.add(new Bubble(x, y, s));
+            if(motionEvent.getPointerCount() >= 1 | motionEvent.getPointerCount() >=2)
+                bubbleList.add(new Bubble(x, y, s));
+
         }
             return true;
 
@@ -89,9 +95,11 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
             xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
             yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
 
+
             if (xspeed == 0 & yspeed == 0) xspeed = yspeed = 2;
 
         }
+
 
         public void draw(Canvas canvas) {
             myPaint.setColor(color);
