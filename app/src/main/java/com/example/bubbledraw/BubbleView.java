@@ -64,12 +64,21 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
             int x = (int) motionEvent.getX(n);
             int y = (int) motionEvent.getY(n);
             int s = rand.nextInt(size) + size;
-            int xspeed = 10;
-            int yspeed = 10;
-            if(motionEvent.getPointerCount() > 3 ) s = 200;
-            if(motionEvent.getPointerCount()== 0) bubbleList.add(new Bubble(x, y, s));
-            if(motionEvent.getPointerCount() >= 1 | motionEvent.getPointerCount() >=2)
+            int xspeed = 0;
+            int yspeed = 0;
+            if(motionEvent.getPointerCount() == 1 ) {
+                xspeed = 15; yspeed = 15;
+            bubbleList.add(new Bubble(x, y ,s ,xspeed, yspeed));
+            }
+            if(motionEvent.getPointerCount() == 2) {
                 bubbleList.add(new Bubble(x, y, s));
+            }
+            if(motionEvent.getPointerCount() > 2 ){
+                s = 200;
+                bubbleList.add(new Bubble(x, y, s));
+            }
+
+
 
         }
             return true;
@@ -99,6 +108,22 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
             if (xspeed == 0 & yspeed == 0) xspeed = yspeed = 2;
 
         }
+        public Bubble(int newX, int newY, int newSize, int newXspeed, int newYspeed) {
+            x = (newX / newSize) * newSize + newSize / 2;
+            y = (newY / newSize) * newSize + newSize / 2;
+            size = newSize;
+            color = Color.argb(rand.nextInt(256),
+                    rand.nextInt(256),
+                    rand.nextInt(256),
+                    rand.nextInt(256));
+            xspeed = newXspeed;
+            yspeed = newYspeed;
+
+
+            if (xspeed == 0 & yspeed == 0) xspeed = yspeed = 2;
+
+        }
+
 
 
         public void draw(Canvas canvas) {
